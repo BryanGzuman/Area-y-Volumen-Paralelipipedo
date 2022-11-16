@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+main()
+{
+	int i, j, potencia;
+	int vectorU[3], vectorV[3], vectorW[3];
+	int ver_A[] = {0, 0, 0};
+	int ver_B[3], ver_C[3], ver_D[3], ver_E[3], ver_F[3], ver_G[3], ver_H[3];
+	int prodcruz[1][3];
+	
+	float area, volumen;
+	
+	
+	// Llenar con datos los vectores
+	
+	printf( "Ingrese los valores del vector u\n\n" );
+	for( i=0; i<3; i++ )
+	{
+		printf("   u[%d] = ", i);
+		scanf( "%d", &vectorU[i] );
+	}
+	
+	printf( "\n\nIngrese los valores del vector v\n\n" );
+	for( i=0; i<3; i++ )
+	{
+		printf("   v[%d] = ", i);
+		scanf( "%d", &vectorV[i] );
+	}
+	
+	printf( "\n\nIngrese los valores del vector u\n\n" );
+	for( i=0; i<3; i++ )
+	{
+		printf("   w[%d] = ", i);
+		scanf( "%d", &vectorW[i] );
+	}
+	
+	
+	// Calcular los vertices
+	
+	for( i=0; i<3; i++ )
+	{
+		ver_B[i] = vectorV[i];
+		ver_C[i] = vectorV[i] + vectorW[i];
+		ver_D[i] = vectorW[i];
+		ver_E[i] = vectorU[i];
+		ver_F[i] = vectorU[i] + vectorV[i];
+		ver_G[i] = vectorU[i] + vectorV[i] + vectorW[i];
+		ver_H[i] = vectorU[i] + vectorW[i];
+	}
+	
+	
+	// Calculo del Area
+	
+	prodcruz[0][0] = ( vectorU[1] * vectorV[2] ) - ( vectorU[2] * vectorV[1] );
+	prodcruz[0][1] = ( vectorU[0] * vectorV[2] ) - ( vectorU[2] * vectorV[0] );
+	prodcruz[0][2] = ( vectorU[0] * vectorV[1] ) - ( vectorU[1] * vectorV[0] );
+	
+	prodcruz[1][0] = ( vectorU[1] * vectorW[2] ) - ( vectorU[2] * vectorW[1] );
+	prodcruz[1][1] = ( vectorU[0] * vectorW[2] ) - ( vectorU[2] * vectorW[0] );
+	prodcruz[1][2] = ( vectorU[0] * vectorW[1] ) - ( vectorU[1] * vectorW[0] );
+	
+	prodcruz[2][0] = ( vectorV[1] * vectorW[2] ) - ( vectorV[2] * vectorW[1] );
+	prodcruz[2][1] = ( vectorV[0] * vectorW[2] ) - ( vectorV[2] * vectorW[0] );
+	prodcruz[2][2] = ( vectorV[0] * vectorW[1] ) - ( vectorV[1] * vectorW[0] );
+	
+	area = 0.0;
+	
+	for( j=0; j<3; j++ )
+	{
+		potencia = 0.0;
+		for( i=0; i<3; i++ )
+			potencia = potencia + pow( prodcruz[j][i], 2 );
+		area += ( 2 * sqrt(potencia) );
+	}
+	
+	printf("\n\nEl area del paralelepipedo es: %f", area);
+	
+	
+	// Calcular el volumen
+	
+	potencia = pow( prodcruz[0][0] * vectorW[0], 2 ) + pow( prodcruz[0][1] * vectorW[1], 2 ) + pow( prodcruz[0][2] * vectorW[2], 2 );
+	volumen = sqrt( potencia );
+	
+	printf("\n\nEl volumen del paralelepipedo es: %f", volumen);
+	
+	printf("\n\n");
+	system("pause");
+
+}
